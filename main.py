@@ -38,9 +38,19 @@ async def root():
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
+@app.get("/tsp/greedy")
+def tsp_greedy():
+    tour, distance = tsp.solve_greedy(distance_matrix)
+    return {"message": "Solution from Greedy", "distance": distance, "tour": tour}
+
 @app.get("/tsp/sa")
 def tsp_sa():
     tour, distance = tsp.solve_SA(distance_matrix)
     # tour, distance = tsp.solve_greedy_tsp(distance_matrix)
     # tour, distance = solve_tsp_simulated_annealing(distance_matrix)
-    return {"message": "Solving the TSP", "distance": distance, "tour": tour}
+    return {"message": "Solution from Simulated Annealing", "distance": distance, "tour": tour}
+
+@app.get("/tsp/pso")
+def tsp_pso():
+    tour, distance = tsp.solve_PSO(distance_matrix)
+    return {"message": "Solution from PSO", "distance": distance, "tour": tour}
