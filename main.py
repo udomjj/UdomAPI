@@ -39,8 +39,8 @@ def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 @app.get("/tsp/sa")
-def tsp_greedy():
+def tsp_sa():
     tour, distance = tsp.solve_SA(distance_matrix)
     # tour, distance = tsp.solve_greedy_tsp(distance_matrix)
     # tour, distance = solve_tsp_simulated_annealing(distance_matrix)
-    return {"distance": distance}
+    return {"message": "Solving the TSP", "distance": distance, "tour": tour}
