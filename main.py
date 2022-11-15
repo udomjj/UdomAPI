@@ -1,13 +1,13 @@
 from typing import Optional
 from fastapi import FastAPI
 
-import numpy as np
-# import tsp_c as tsp
-from python_tsp.heuristics import solve_tsp_simulated_annealing
+# import numpy as np
+import tsp_c as tsp
+# from python_tsp.heuristics import solve_tsp_simulated_annealing
 
 app = FastAPI()
 
-"""
+
 distance_matrix = [
 	[0.0, 290.7, 254.9, 172.9, 335.7, 108.8, 148.0, 83.0, 141.9, 32.9],
 	[263.6, 0.0, 508.3, 185.0, 562.1, 364.0, 283.3, 322.8, 283.3, 349.0],
@@ -20,14 +20,15 @@ distance_matrix = [
 	[153.0, 301.0, 388.3, 110.8, 191.4, 136.7, 335.9, 209.6, 0.0, 162.5],
 	[30.5, 323.9, 248.8, 170.2, 266.4, 87.1, 206.4, 52.4, 162.3, 0.0]
 ]
-"""
 
+"""
 distance_matrix = np.array([
     [0,  5, 4, 10],
     [5,  0, 8,  5],
     [4,  8, 0,  3],
     [10, 5, 3,  0]
 ])
+"""
 
 @app.get("/")
 async def root():
@@ -39,6 +40,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 @app.get("/tsp/sa")
 def tsp_greedy():
+    tour, distance = tsp.solve_SA(distance_matrix)
     # tour, distance = tsp.solve_greedy_tsp(distance_matrix)
-    tour, distance = solve_tsp_simulated_annealing(distance_matrix)
+    # tour, distance = solve_tsp_simulated_annealing(distance_matrix)
     return {"distance": distance}
