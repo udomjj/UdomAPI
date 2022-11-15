@@ -28,4 +28,4 @@ def read_item(item_id: int, q: Optional[str] = None):
 @app.get("/tsp/greedy")
 def tsp_greedy():
     tour, distance = tsp.solve_greedy_tsp(distance_matrix)
-    return {"distance": distance, "tour": tour}
+    return {"distance": distance}
